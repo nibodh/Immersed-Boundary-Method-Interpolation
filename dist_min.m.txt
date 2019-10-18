@@ -1,0 +1,26 @@
+function [x_min, y_min] = min_dist(xx,yy,dx,dy,grid,boundary,tolerance,x1,y1,x2,y2)
+iii = 0;    %%% counter for min distance
+mark = zeros(length(xx));
+dist = zeros(length(xx));
+for ii = 1:length(yy)
+    mark(ii) = cell_in(xx(ii),yy(ii),dx,dy,grid,boundary,tolerance);
+    if mark(ii) == 0
+        iii = iii + 1;   %%% increasing counter for min distance on point found
+        dist(ii) = dist_ance([xx(ii), yy(ii)],[x1, y1]);
+        if iii == 1    %%% checking counter for min distance = 1
+            distmin = dist(ii);
+            loc = ii;
+        elseif dist(ii) < distmin
+            distmin = dist(ii);
+            loc = ii;
+        end
+    end
+end
+if iii == 0
+    y_min = y2;
+    x_min = x2;
+elseif iii > 0
+    y_min = yy(loc);
+    x_min = xx(loc);
+end
+end
